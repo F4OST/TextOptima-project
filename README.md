@@ -1,7 +1,6 @@
 # TextOptima-project
-# TextOptima
 
-Welcome to TextOptima! This repository is a work-in-progress project aimed at optimizing and enhancing text through various features.
+Welcome to TextOptima project This repository is a work-in-progress project aimed at optimizing and enhancing text through various features.
 
 ## Status
 
