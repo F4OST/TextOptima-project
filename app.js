@@ -17,6 +17,14 @@ function spacesToTabs(text) {
 function removeEmptyLines(text) {
   return text.replace(/^\s*[\r\n]+/gm, "");
 }
+/*
+let  keepLineChar ="."
+     Removes empty lines from the input text while preserving lines ending with the specified char
+  function removeEmptyLines(text, keepLineChar) {
+    const pattern = new RegExp(`([^${keepLineChar}])\\s*[\\r\\n]+`, 'g');
+    return text.replace(pattern, '$1\n');
+  }
+*/
 
 
 function performAction() {
