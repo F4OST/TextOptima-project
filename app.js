@@ -5,12 +5,13 @@ const patterns = {
   allSpaces: / /g,
   spacesToTabs: / +/g, // Pattern to match three or more spaces for replacement with a tab
   emptyLines: /^\s*[\r\n]+/gm,
+  lineBreaks: /\r?\n/g,
 };
 
 
 function removeExtraSpaces(text) {
   // Using regex to replace consecutive spaces with a single space
-  return text.replace(patterns.removeExtraSpaces, ' ');
+  return text.replace(patterns.extraSpaces, ' ');
 }
 
 function removeAllSpaces(text) {
@@ -19,11 +20,14 @@ function removeAllSpaces(text) {
 }
 //Convert spaces to tabs: Allow users to convert spaces to tab characters, which can be valuable for text formatting in code or tables.
 function spacesToTabs(text) {
-  return text.replace(patterns.spacesToTabs,'\t');
+  return text.replace(patterns.spacesToTabs,' ');
 }
 //remove empty lines
 function removeEmptyLines(text) {
   return text.replace(patterns.emptyLines,'');
+}
+function removeLineBreaks(text) {
+  return text.replace(patterns.lineBreaks,'');
 }
 /*
 let  keepLineChar ="."
@@ -53,6 +57,9 @@ function performAction() {
     case "removeEmptyLines":
       outputText = removeEmptyLines(inputText);
       break;
+      case "removeLineBreaks":
+        outputText = removeLineBreaks (inputText);
+        break;
     default:
   }
 
