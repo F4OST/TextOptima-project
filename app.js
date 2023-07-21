@@ -1,21 +1,29 @@
 // add feautre change first letter to capital like hello become Hello or make mock text like hElLO
 //we can use regex repeat to pull out big word or any specfiy we did its good for feautres
+const patterns = {
+  extraSpaces: /\s+/g,
+  allSpaces: /\s+/g,
+  spacesToTabs: /\s+/g, // Pattern to match three or more spaces for replacement with a tab
+  emptyLines: /^\s*[\r\n]+/gm,
+};
+
+
 function removeExtraSpaces(text) {
   // Using regex to replace consecutive spaces with a single space
-  return text.replace(/\s+/g, " ");
+  return text.replace(patterns.extraSpaces," ");
 }
 
 function removeAllSpaces(text) {
   // Using regex to remove all spaces
-  return text.replace(/\s+/g, "");
+  return text.replace(patterns.allSpaces,"");
 }
 //Convert spaces to tabs: Allow users to convert spaces to tab characters, which can be valuable for text formatting in code or tables.
 function spacesToTabs(text) {
-  return text.replace(/\s+/g, "   ");
+  return text.replace(patterns.spacesToTabs,"   ");
 }
 //remove empty lines
 function removeEmptyLines(text) {
-  return text.replace(/^\s*[\r\n]+/gm, "");
+  return text.replace(patterns.emptyLines,"");
 }
 /*
 let  keepLineChar ="."
@@ -25,7 +33,7 @@ let  keepLineChar ="."
     return text.replace(pattern, '$1\n');
   }
 */
-
+//declare a object and store the pattreens , myeby password genretor regex
 
 function performAction() {
   let selectedAction = document.getElementById("actionSelect").value;
