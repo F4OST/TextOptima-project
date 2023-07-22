@@ -10,9 +10,10 @@ const patterns = {
   linesContaining: (word) => new RegExp(`^.*\\b${word}\\b.*$`, 'gm'),
   accentPattern: /[\u0300-\u036f]/g,
   punctuationPattern: /[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
+  prefixPattern: (prefix) => new RegExp(`^(.*)$`, 'gm'),
  
 };
-let word = "apple"
+
 function removeExtraSpaces(text) {
   // Using regex to replace consecutive spaces with a single space
   return text.replace(patterns.extraSpaces, ' ');
@@ -47,9 +48,14 @@ function removeAccents(text) {
   const pattern = patterns.accentPattern;
   return normalizedText.replace(pattern, '');
 }
-// Function to remove punctuation
+// remove punctuation
 function removePunctuation(text) {
   return text.replace(patterns.punctuationPattern,'');
+}
+//add specified postfix to each line in the text
+function addPrefix(text, prefix) {
+  const pattern = patterns.prefixPattern(prefix);
+  return text.replace(pattern, `$1${prefix}`);
 }
 
 
@@ -93,6 +99,7 @@ function performAction() {
         outputText = removeLineBreaks (inputText);
         break;
         case "removeLinesContaining":
+          let word = "apple"
           outputText = removeLinesContaining (inputText,word);
           break;
           case "removeAccents":
@@ -101,6 +108,11 @@ function performAction() {
             case "removePunctuation":
               outputText = removePunctuation(inputText);
               break;
+              case "addPrefix":
+                let prefix = "[P]"; 
+                outputText = addPrefix(inputText, prefix);
+                break;
+             
     default:
   }
 
