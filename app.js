@@ -1,5 +1,6 @@
 // add feautre change first letter to capital like hello become Hello or make mock text like hElLO
 //we can use regex repeat to pull out big word or any specfiy we did its good for feautres
+//add list style to the lines 
 const patterns = {
   extraSpaces: / +(?!\n)/g,
   allSpaces: / /g,
@@ -7,6 +8,7 @@ const patterns = {
   emptyLines: /^\s*[\r\n]+/gm,
   lineBreaks: /\r?\n/g,
   linesContaining: (word) => new RegExp(`^.*\\b${word}\\b.*$`, 'gm'),
+  accentPattern: /[\u0300-\u036f]/g,
 };
 let word = "apple"
 function removeExtraSpaces(text) {
@@ -36,6 +38,14 @@ function removeLinesContaining(text, word) {
   //Remove any empty lines left after removing lines containing the word
   return removeEmptyLines(filteredText);
 }
+//Removes accents from a text string.
+function removeAccents(text) {
+  // Normalize the text to convert accented characters into their base form
+  const normalizedText = text.normalize("NFD");
+  const pattern = patterns.accentPattern;
+  return normalizedText.replace(pattern, '');
+}
+
 
 
 
@@ -79,6 +89,9 @@ function performAction() {
         case "removeLinesContaining":
           outputText = removeLinesContaining (inputText,word);
           break;
+          case "removeAccents":
+            outputText = removeAccents(inputText);
+            break;
     default:
   }
 
