@@ -9,6 +9,8 @@ const patterns = {
   lineBreaks: /\r?\n/g,
   linesContaining: (word) => new RegExp(`^.*\\b${word}\\b.*$`, 'gm'),
   accentPattern: /[\u0300-\u036f]/g,
+  punctuationPattern: /[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
+ 
 };
 let word = "apple"
 function removeExtraSpaces(text) {
@@ -44,6 +46,10 @@ function removeAccents(text) {
   const normalizedText = text.normalize("NFD");
   const pattern = patterns.accentPattern;
   return normalizedText.replace(pattern, '');
+}
+// Function to remove punctuation
+function removePunctuation(text) {
+  return text.replace(patterns.punctuationPattern,'');
 }
 
 
@@ -92,6 +98,9 @@ function performAction() {
           case "removeAccents":
             outputText = removeAccents(inputText);
             break;
+            case "removePunctuation":
+              outputText = removePunctuation(inputText);
+              break;
     default:
   }
 
