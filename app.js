@@ -11,6 +11,7 @@ const patterns = {
   accentPattern: /[\u0300-\u036f]/g,
   punctuationPattern: /[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
   prefixPattern: (prefix) => new RegExp(`^(.*)$`, 'gm'),
+  postfixPattern: (postfix) => new RegExp(`^(.*)$`, 'gm'),
  
 };
 
@@ -52,13 +53,16 @@ function removeAccents(text) {
 function removePunctuation(text) {
   return text.replace(patterns.punctuationPattern,'');
 }
-//add specified postfix to each line in the text
+//add specified postfix to start of each line in the text
 function addPrefix(text, prefix) {
   const pattern = patterns.prefixPattern(prefix);
-  return text.replace(pattern, `$1${prefix}`);
+  return text.replace(pattern, `${prefix}$1`);
 }
-
-
+//add specified postfix to end of each line in the text
+function addPostfix(text, postfix) {
+  const pattern = patterns.postfixPattern(postfix);
+  return text.replace(pattern, `$1${postfix}`);
+}
 
 
 /*
@@ -109,9 +113,13 @@ function performAction() {
               outputText = removePunctuation(inputText);
               break;
               case "addPrefix":
-                let prefix = "[P]"; 
+                let prefix = "[PRE]"; 
                 outputText = addPrefix(inputText, prefix);
                 break;
+                case "addPostfix":
+                  let postfix = "[POS]"; 
+                  outputText = addPostfix(inputText, postfix);
+                  break;
              
     default:
   }
