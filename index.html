@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Optima</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Text Optima</h1>
+    <div class="container">
+      <h3>input</h3>
+      <textarea id="textInput" placeholder="Enter text..." rows="6"></textarea>
+      <select id="actionSelect">
+        <option value="removeExtraSpaces">Remove Extra Space</option>
+        <option value="removeAllSpaces">Remove All Space</option>
+        <option value="convertSpacesToTabs">Convert Spaces To Tabs</option> 
+        <option value="removeEmptyLines">Remove Empty Lines</option>   
+        <option value="removeLineBreaks">Remove Line Breaks</option>
+        <option value="removeLinesContaining">Remove Line Containing</option>
+        <option value="removeAccents">Remove Accents</option>
+        <option value="removePunctuation">Remove Punctuation</option>
+        <option value="addPrefix">Add Prefix</option>
+      </select>
+      <button onclick="performAction()">Apply</button>
+      <h3>output</h3>
+      <textarea
+        id="outputArea"
+        placeholder="Output Text"
+        rows="6"
+        readonly
+      ></textarea>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
