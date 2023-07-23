@@ -12,16 +12,29 @@
       <select id="actionSelect">
         <option value="removeExtraSpaces">Remove Extra Space</option>
         <option value="removeAllSpaces">Remove All Space</option>
-        <option value="convertSpacesToTabs">Convert Spaces To Tabs</option> 
-        <option value="removeEmptyLines">Remove Empty Lines</option>   
+        <option value="convertSpacesToTabs">Convert Spaces To Tabs</option>
+        <option value="removeEmptyLines">Remove Empty Lines</option>
         <option value="removeLineBreaks">Remove Line Breaks</option>
         <option value="removeLinesContaining">Remove Line Containing</option>
         <option value="removeAccents">Remove Accents</option>
         <option value="removePunctuation">Remove Punctuation</option>
         <option value="addPrefix">Add Prefix</option>
         <option value="addPostfix">Add Postfix</option>
+        <option value="findAndReplace">Find And Replace</option>
       </select>
+     
+      <div id="ContainStringContainer" class="hidden">
+      <label for="contain">Containing String:</label>
+      <input
+        type="text"
+        id="contain"
+        placeholder="Enter String..."
+        />
+     
+    </div>
+
       <button onclick="performAction()">Apply</button>
+
       <h3>output</h3>
       <textarea
         id="outputArea"
