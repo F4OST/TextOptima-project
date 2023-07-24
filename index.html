@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Text Optima</h1>
+    
     <div class="container">
-      <h3>input</h3>
+      <h4>Text Optima</h4>
+      <p>input</p>
       <textarea id="textInput" placeholder="Enter text..." rows="6"></textarea>
       <select id="actionSelect">
         <option value="removeExtraSpaces">Remove Extra Space</option>
@@ -22,20 +23,42 @@
         <option value="addPostfix">Add Postfix</option>
         <option value="findAndReplace">Find And Replace</option>
       </select>
-     
       <div id="ContainStringContainer" class="hidden">
       <label for="contain">Containing String:</label>
       <input
         type="text"
         id="contain"
         placeholder="Enter String..."
-        />
-     
+       />
     </div>
+    <div id="findAndReplaceContainer" class="hidden">
+      <label for="wholeWord">Whole Word:</label>
+      <input type="checkbox" id="wholeWord" />
+      <label for="find">Find String:</label>
+      <input
+        type="text"
+        id="find"
+        placeholder="Enter String..."
+      />
+      <label for="replace">Replace with:</label>
+      <input
+        type="text"
+        id="replace"
+        placeholder="Enter Replacement..."
+      />
+      <label for="regex">Custom Regex:</label>
+      <input
+        type="text"
+        id="regex"
+        placeholder="Enter Custom Regex..."
+      />
+    </div>
+    
+    
 
       <button onclick="performAction()">Apply</button>
 
-      <h3>output</h3>
+      <p>output</p>
       <textarea
         id="outputArea"
         placeholder="Output Text"
