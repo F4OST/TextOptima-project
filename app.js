@@ -1,10 +1,11 @@
 // add feautre change first letter to capital like hello become Hello or make mock text like hElLO
 //we can use regex repeat to pull out big word or any specfiy we did its good for feautres
-//add list style to the lines
+//add list style to the lines 
+//add highlight feautre for matched word
 const patterns = {
   extraSpaces: / +(?!\n)/g,
   allSpaces: / /g,
-  spacesToTabs: / +/g, // Pattern to match three or more spaces for replacement with a tab
+  spacesToTabs: / +/g,
   emptyLines: /^\s*[\r\n]+/gm,
   lineBreaks: /\r?\n/g,
   linesContaining: (word) => new RegExp(`^.*\\b${word}\\b.*$`, "gm"),
@@ -12,7 +13,6 @@ const patterns = {
   punctuationPattern: /[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/g,
   prefixPattern: (prefix) => new RegExp(`^(.*)$`, "gm"),
   postfixPattern: (postfix) => new RegExp(`^(.*)$`, "gm"),
-  
 };
 
 function removeExtraSpaces(text) {
@@ -63,6 +63,40 @@ function addPostfix(text, postfix) {
   const pattern = patterns.postfixPattern(postfix);
   return text.replace(pattern, `$1${postfix}`);
 }
+
+function findAndReplace( text,findText,replaceText,customRegex,wholeWordOnly) {
+  let pattern;
+
+  // If customRegex is provided, use the custom regex pattern
+  if (customRegex) {
+    const [regexStr, flags] = customRegex
+      .match(/\/(.*?)\/([gimy]{0,4})$/)
+      .slice(1);
+    pattern = new RegExp(regexStr, flags);
+  } else {
+    // Using the default findAndReplace pattern
+    pattern = findAndReplacePattern(findText, wholeWordOnly);
+  }
+
+  return text.replace(pattern, function (match) {
+    if (replaceText !== "") {
+      // If the replaceText is not empty, replace the match with it
+      return replaceText;
+    } else {
+      return match;
+    }
+  });
+}
+
+function findAndReplacePattern(findText, wholeWordOnly) {
+  const escapedFindText = findText.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+  if (wholeWordOnly) {
+    return new RegExp(`\\b${escapedFindText}\\b`, "g");
+  } else {
+    return new RegExp(escapedFindText, "g");
+  }
+}
+
 /*
 
 let  keepLineChar ="."
@@ -81,13 +115,22 @@ let  keepLineChar ="."
 //declare a object and store the pattreens , myeby password genretor regex
 const selectedAction = document.getElementById("actionSelect");
 //TODO:edit var name later
-const ContainStringContainer = document.getElementById("ContainStringContainer");
-//Function to toggle the visibility of the element Container based on the selected value.
+const ContainStringContainer = document.getElementById(
+  "ContainStringContainer"
+);
+const findAndReplaceContainer = document.getElementById(
+  "findAndReplaceContainer"
+);
+//Function to toggle the visibility of the element Container based on the selected value
 function toggleOptions() {
   const selectedValue = selectedAction.value;
   ContainStringContainer.classList.toggle(
     "hidden",
     selectedValue !== "removeLinesContaining"
+  );
+  findAndReplaceContainer.classList.toggle(
+    "hidden",
+    selectedValue !== "findAndReplace"
   );
 }
 
@@ -117,7 +160,7 @@ function performAction() {
       outputText = removeLineBreaks(inputText);
       break;
     case "removeLinesContaining":
-      let word = "apple";
+      let word = document.getElementById("contain").value;
       outputText = removeLinesContaining(inputText, word);
       break;
     case "removeAccents":
@@ -134,7 +177,20 @@ function performAction() {
       let postfix = "[POS]";
       outputText = addPostfix(inputText, postfix);
       break;
-   
+    case "findAndReplace":
+      let findText = document.getElementById("find").value;
+      let replaceText = document.getElementById("replace").value;
+      let customRegexPattern = document.getElementById("regex").value;
+      let wholeWordOnly = document.getElementById("wholeWord").checked;
+      outputText = findAndReplace(
+        inputText,
+        findText,
+        replaceText,
+        customRegexPattern,
+        wholeWordOnly
+      );
+      break;
+
     default:
   }
 
