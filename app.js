@@ -96,6 +96,18 @@ function findAndReplacePattern(findText, wholeWordOnly) {
     return new RegExp(escapedFindText, "g");
   }
 }
+const caseTypes = {
+  lower: str => str.toLowerCase(),
+  upper: str => str.toUpperCase(),
+  sentence: str => str.replace(/\b\w/g, match => match.toUpperCase()),
+};
+
+// Function to convert the text based on the selected case option
+function convertCase(text, caseType) {
+  return caseTypes[caseType]?.(text) ?? text;
+}
+
+
 
 /*
 
@@ -121,6 +133,9 @@ const ContainStringContainer = document.getElementById(
 const findAndReplaceContainer = document.getElementById(
   "findAndReplaceContainer"
 );
+const convertCaseContainer = document.getElementById(
+"convertCaseContainer"
+);
 //Function to toggle the visibility of the element Container based on the selected value
 function toggleOptions() {
   const selectedValue = selectedAction.value;
@@ -131,6 +146,10 @@ function toggleOptions() {
   findAndReplaceContainer.classList.toggle(
     "hidden",
     selectedValue !== "findAndReplace"
+  );
+  convertCaseContainer.classList.toggle(
+    "hidden",
+    selectedValue !== "convertCase"
   );
 }
 
@@ -190,7 +209,11 @@ function performAction() {
         wholeWordOnly
       );
       break;
-
+      case "convertCase":
+        let caseOption = document.querySelector('input[name="caseOption"]:checked').value;
+        outputText = convertCase(inputText, caseOption);
+        break;
+  
     default:
   }
 
