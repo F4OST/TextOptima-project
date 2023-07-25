@@ -22,6 +22,7 @@
         <option value="addPrefix">Add Prefix</option>
         <option value="addPostfix">Add Postfix</option>
         <option value="findAndReplace">Find And Replace</option>
+        <option value="convertCase">Convert Case</option>
       </select>
       <div id="ContainStringContainer" class="hidden">
       <label for="contain">Containing String:</label>
@@ -53,6 +54,15 @@
         placeholder="Enter Custom Regex..."
       />
     </div>
+    <div id="convertCaseContainer">
+      <label for="upper">Upper Case</label>
+      <input type="radio" name="caseOption" id="upper" value="upper" />
+      <label for="lower">Lower Case</label>
+      <input type="radio" name="caseOption" id="lower" value="lower" />
+      <label for="sentence">Sentence Case</label>
+      <input type="radio" name="caseOption" id="sentence" value="sentence" />
+    </div>
+
     
     
 
