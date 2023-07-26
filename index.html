@@ -23,6 +23,7 @@
         <option value="addPostfix">Add Postfix</option>
         <option value="findAndReplace">Find And Replace</option>
         <option value="convertCase">Convert Case</option>
+        <option value="generateLorem">Generate Lorem</option>
       </select>
       <div id="ContainStringContainer" class="hidden">
       <label for="contain">Containing String:</label>
@@ -62,6 +63,19 @@
       <label for="sentence">Sentence Case</label>
       <input type="radio" name="caseOption" id="sentence" value="sentence" />
     </div>
+    <div id="loramOptionsContainer" class="hidden">
+      <label for="loramType">Type:</label>
+      <select id="loramType">
+        <option value="paragraph">Paragraph</option>
+        <option value="word">Word</option>
+        <option value="sentence">Sentence</option>
+      </select>
+    
+      <label for="loramCount">Count:</label>
+      <input type="number" id="loramCount" min="1" max="50" value="1">
+
+    </div>
+    
 
     
     
