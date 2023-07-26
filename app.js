@@ -179,6 +179,19 @@ function generateLorem(type, count) {
 
   return generatedText;
 }
+function stringToBinary(text) {
+  return text
+    .split("")
+    .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
+    .join(" ");
+}
+function binaryToString(binary) {
+  return binary
+    .split(" ")
+    .map((bin) => String.fromCharCode(parseInt(bin, 2)))
+    .join("");
+}
+
 
 /*
 
@@ -293,6 +306,12 @@ function performAction() {
       let loramType = document.getElementById("loramType").value;
       let loramCount = document.getElementById("loramCount").valueAsNumber;
       outputText = generateLorem(loramType, loramCount);
+      break;
+      case "stringToBinary":
+        outputText = stringToBinary(inputText);
+        break;
+        case "binaryToString":
+      outputText = binaryToString(inputText);
       break;
 
     default:
