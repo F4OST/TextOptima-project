@@ -193,6 +193,7 @@ function binaryToString(binary) {
 }
 
 
+
 /*
 
 let  keepLineChar ="."
