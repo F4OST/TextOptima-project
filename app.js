@@ -179,18 +179,28 @@ function generateLorem(type, count) {
 
   return generatedText;
 }
+
 function stringToBinary(text) {
   return text
     .split("")
     .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
     .join(" ");
 }
+
 function binaryToString(binary) {
   return binary
     .split(" ")
     .map((bin) => String.fromCharCode(parseInt(bin, 2)))
     .join("");
 }
+
+function stringToHex(text) {
+  return text
+    .split('')
+    .map((char) => char.charCodeAt(0).toString(16).padStart(2, '0'))
+    .join('');
+}
+
 
 
 
@@ -313,6 +323,9 @@ function performAction() {
         break;
         case "binaryToString":
       outputText = binaryToString(inputText);
+      break;
+      case "stringToHex":
+      outputText = stringToHex(inputText);
       break;
 
     default:
