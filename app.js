@@ -201,6 +201,18 @@ function stringToHex(text) {
     .join('');
 }
 
+function hexToString(hex) {
+  // Remove any spaces or non-hex characters from the input
+  const cleanedHex = hex.replace(/[^0-9a-fA-F]/g, '');
+  
+  // Split the cleaned hexadecimal string into pairs of two characters each
+  const hexPairs = cleanedHex.match(/.{1,2}/g) || [];
+  
+  // Convert each pair to its corresponding character using the fromCharCode method
+  return hexPairs.map((hexPair) => String.fromCharCode(parseInt(hexPair, 16))).join('');
+}
+
+
 
 
 
@@ -326,6 +338,9 @@ function performAction() {
       break;
       case "stringToHex":
       outputText = stringToHex(inputText);
+      break;
+      case "hexToString":
+      outputText = hexToString(inputText);
       break;
 
     default:
