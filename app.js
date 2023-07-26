@@ -1,6 +1,6 @@
 // add feautre change first letter to capital like hello become Hello or make mock text like hElLO
 //we can use regex repeat to pull out big word or any specfiy we did its good for feautres
-//add list style to the lines 
+//add list style to the lines
 //add highlight feautre for matched word
 const patterns = {
   extraSpaces: / +(?!\n)/g,
@@ -26,7 +26,7 @@ function removeAllSpaces(text) {
 }
 //Convert spaces to tabs: Allow users to convert spaces to tab characters, which can be valuable for text formatting in code or tables.
 function spacesToTabs(text) {
-  return text.replace(patterns.spacesToTabs, " ");
+  return text.replace(patterns.spacesToTabs, "    ");
 }
 //remove empty lines
 function removeEmptyLines(text) {
@@ -64,7 +64,13 @@ function addPostfix(text, postfix) {
   return text.replace(pattern, `$1${postfix}`);
 }
 
-function findAndReplace( text,findText,replaceText,customRegex,wholeWordOnly) {
+function findAndReplace(
+  text,
+  findText,
+  replaceText,
+  customRegex,
+  wholeWordOnly
+) {
   let pattern;
 
   // If customRegex is provided, use the custom regex pattern
@@ -97,17 +103,82 @@ function findAndReplacePattern(findText, wholeWordOnly) {
   }
 }
 const caseTypes = {
-  lower: str => str.toLowerCase(),
-  upper: str => str.toUpperCase(),
-  sentence: str => str.replace(/\b\w/g, match => match.toUpperCase()),
+  lower: (str) => str.toLowerCase(),
+  upper: (str) => str.toUpperCase(),
+  sentence: (str) => str.replace(/\b\w/g, (match) => match.toUpperCase()),
 };
 
 // Function to convert the text based on the selected case option
 function convertCase(text, caseType) {
   return caseTypes[caseType]?.(text) ?? text;
 }
+function generateLorem(type, count) {
+  // Sample Lorem Ipsum text
+  const loremText = `Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet consectetur adipiscing elit
+   Quisque luctus magna nec luctus tempor Integer in ligula eu neque laoreet feugiat Pellentesque efficitur viverra mauris at mattis
+    Sed vitae ipsum quis mauris dapibus iaculis non nec arcu Phasellus vehicula lacus quis lacus porttitor, non eleifend elit aliquet
+    Nullam auctor felis vitae cursus tincidunt Aliquam pretium diam vel dui placerat aliquam Fusce id bibendum nunc
+    Proin vel lectus eget elit faucibus suscipit ac ac risus Ut euismod urna sed odio viverra interdum
+  Aenean ullamcorper, odio non eleifend tincidunt, odio nisi blandit turpis a lacinia est enim nec velit Curabitur id eleifend tortor,
+   id varius lectus Duis malesuada ex a lorem dapibus, eget vestibulum purus luctus Nunc sit amet neque nec dui tristique venenatis
+   Integer at purus sit amet tortor eleifend eleifend vel a nulla Nulla facilisi Vestibulum consectetur enim non ex pellentesque,
+   ac lacinia elit fringilla Curabitur consectetur justo a purus convallis venenatis
+  Praesent aliquet velit id justo pharetra euismod venenatis risus finibus. Maecenas nec eros ut massa fermentum dignissim
+   Nulla facilisi Vestibulum bibendum sapien vel nisi volutpat, in consectetur lectus pellentesque Nulla eu hendrerit ex,
+   quis euismod augue Maecenas eu arcu nunc Curabitur vehicula iaculis risus, sit amet fringilla quam dignissim eu Nam a felis non mi eleifend dapibus
+  Suspendisse potenti Nam at dui luctus, scelerisque ex a, laoreet quam Sed eget tincidunt erat
+   In facilisis ligula vitae mauris efficitur fermentum Donec eu augue consectetur
+   facilisis nisl in congue mi Sed ullamcorper fringilla risus vel fringilla Curabitur feugiat, purus nec finibus laoreet,
+    odio metus sagittis lacus sit amet dignissim ligula mi ut turpis Sed pellentesque lacus ut ex ultrices laoreet`;
 
+  // Split the text into an array of words
+  const wordsArray = loremText.split(/\s+/);
 
+  const generatedParagraphs = [];
+
+  for (let i = 0; i < count; i++) {
+    generatedParagraphs.push(...wordsArray);
+  }
+
+  // Shuffle the generatedParagraphs using the Fisher-Yates shuffle algorithm
+  for (let i = generatedParagraphs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [generatedParagraphs[i], generatedParagraphs[j]] = [
+      generatedParagraphs[j],
+      generatedParagraphs[i],
+    ];
+  }
+
+  let generatedText;
+
+  switch (type) {
+    case "paragraph":
+      // Join the words back to form paragraphs
+
+      generatedText = generatedParagraphs.slice(0, count * 15).join(" ");
+      // Add line breaks after every 20 words to form paragraphs
+      generatedText = generatedText.replace(/((\S+\s+){14})(\S+)\.?/g, "$1$3.");
+
+      // Ensure the generatedText starts with "Lorem ipsum dolor sit amet"
+      generatedText = "Lorem ipsum dolor sit amet" + generatedText.slice(1);
+      break;
+
+    case "word":
+      generatedText = generatedParagraphs.slice(0, count).join(" ");
+      break;
+
+    case "sentence":
+      generatedText = generatedParagraphs.slice(0, count * 15).join(" ");
+      generatedText = generatedText.replace(/((\S+\s+){14})(\S+)\.?/g, "$1$3.");
+      generatedText = "Lorem ipsum dolor sit amet" + generatedText.slice(1);
+      break;
+
+    default:
+      generatedText = "Invalid type specified.";
+  }
+
+  return generatedText;
+}
 
 /*
 
@@ -133,9 +204,8 @@ const ContainStringContainer = document.getElementById(
 const findAndReplaceContainer = document.getElementById(
   "findAndReplaceContainer"
 );
-const convertCaseContainer = document.getElementById(
-"convertCaseContainer"
-);
+const convertCaseContainer = document.getElementById("convertCaseContainer");
+const loramOptionsContainer = document.getElementById("loramOptionsContainer");
 //Function to toggle the visibility of the element Container based on the selected value
 function toggleOptions() {
   const selectedValue = selectedAction.value;
@@ -150,6 +220,10 @@ function toggleOptions() {
   convertCaseContainer.classList.toggle(
     "hidden",
     selectedValue !== "convertCase"
+  );
+  loramOptionsContainer.classList.toggle(
+    "hidden",
+    selectedValue !== "generateLorem"
   );
 }
 
@@ -209,11 +283,18 @@ function performAction() {
         wholeWordOnly
       );
       break;
-      case "convertCase":
-        let caseOption = document.querySelector('input[name="caseOption"]:checked').value;
-        outputText = convertCase(inputText, caseOption);
-        break;
-  
+    case "convertCase":
+      let caseOption = document.querySelector(
+        'input[name="caseOption"]:checked'
+      ).value;
+      outputText = convertCase(inputText, caseOption);
+      break;
+    case "generateLorem":
+      let loramType = document.getElementById("loramType").value;
+      let loramCount = document.getElementById("loramCount").valueAsNumber;
+      outputText = generateLorem(loramType, loramCount);
+      break;
+
     default:
   }
 
