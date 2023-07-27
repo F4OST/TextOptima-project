@@ -219,6 +219,10 @@ function reverseString(text) {
 function base64Encode(text) {
   return btoa(text);
 }
+function base64Decode(encodedText) {
+  return atob(encodedText);
+}
+
 
 
 
@@ -355,6 +359,9 @@ function performAction() {
         break;
         case "base64Encode":
       outputText = base64Encode(inputText);
+      break;
+      case "base64Decode":
+      outputText = base64Decode(inputText);
       break;
 
     default:
