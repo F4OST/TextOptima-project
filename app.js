@@ -216,6 +216,11 @@ function reverseString(text) {
   return text.split('').reverse().join('');
 }
 
+function base64Encode(text) {
+  return btoa(text);
+}
+
+
 
 
 
@@ -348,6 +353,9 @@ function performAction() {
       case "reverseString":
         outputText = reverseString(inputText);
         break;
+        case "base64Encode":
+      outputText = base64Encode(inputText);
+      break;
 
     default:
   }
