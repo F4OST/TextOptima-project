@@ -212,6 +212,9 @@ function hexToString(hex) {
   return hexPairs.map((hexPair) => String.fromCharCode(parseInt(hexPair, 16))).join('');
 }
 
+function reverseString(text) {
+  return text.split('').reverse().join('');
+}
 
 
 
@@ -342,6 +345,9 @@ function performAction() {
       case "hexToString":
       outputText = hexToString(inputText);
       break;
+      case "reverseString":
+        outputText = reverseString(inputText);
+        break;
 
     default:
   }
