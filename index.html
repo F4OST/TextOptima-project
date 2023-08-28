@@ -5,23 +5,91 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Text Optima</h1>
+    
     <div class="container">
-      <h3>input</h3>
+      <h4>Text Optima</h4>
+      <p>input</p>
       <textarea id="textInput" placeholder="Enter text..." rows="6"></textarea>
       <select id="actionSelect">
         <option value="removeExtraSpaces">Remove Extra Space</option>
         <option value="removeAllSpaces">Remove All Space</option>
-        <option value="convertSpacesToTabs">Convert Spaces To Tabs</option> 
-        <option value="removeEmptyLines">Remove Empty Lines</option>   
+        <option value="convertSpacesToTabs">Convert Spaces To Tabs</option>
+        <option value="removeEmptyLines">Remove Empty Lines</option>
         <option value="removeLineBreaks">Remove Line Breaks</option>
         <option value="removeLinesContaining">Remove Line Containing</option>
         <option value="removeAccents">Remove Accents</option>
         <option value="removePunctuation">Remove Punctuation</option>
         <option value="addPrefix">Add Prefix</option>
+        <option value="addPostfix">Add Postfix</option>
+        <option value="findAndReplace">Find And Replace</option>
+        <option value="convertCase">Convert Case</option>
+        <option value="generateLorem">Generate Lorem</option>
+        <option value="stringToBinary">Convert String To Binary</option>
+        <option value="binaryToString">Convert Binary To String</option>
+        <option value="stringToHex">Convert String To Hex</option>
+        <option value="hexToString">Convert Hex To String</option>
+        <option value="reverseString">Reverse String</option>
+        <option value="base64Encode">base64 Encode</option>
+        <option value="base64Decode">base64 Decode</option>
       </select>
+      <div id="ContainStringContainer" class="hidden">
+      <label for="contain">Containing String:</label>
+      <input
+        type="text"
+        id="contain"
+        placeholder="Enter String..."
+       />
+    </div>
+    <div id="findAndReplaceContainer" class="hidden">
+      <label for="wholeWord">Whole Word:</label>
+      <input type="checkbox" id="wholeWord" />
+      <label for="find">Find String:</label>
+      <input
+        type="text"
+        id="find"
+        placeholder="Find..."
+      />
+      <label for="replace">Replace with:</label>
+      <input
+        type="text"
+        id="replace"
+        placeholder="Replace..."
+      />
+      <label for="regex">Custom Regex:</label>
+      <input
+        type="text"
+        id="regex"
+        placeholder="Enter Custom Regex..."
+      />
+    </div>
+    <div id="convertCaseContainer">
+      <label for="upper">Upper Case</label>
+      <input type="radio" name="caseOption" id="upper" value="upper" />
+      <label for="lower">Lower Case</label>
+      <input type="radio" name="caseOption" id="lower" value="lower" />
+      <label for="sentence">Sentence Case</label>
+      <input type="radio" name="caseOption" id="sentence" value="sentence" />
+    </div>
+    <div id="loramOptionsContainer" class="hidden">
+      <label for="loramType">Type:</label>
+      <select id="loramType">
+        <option value="paragraph">Paragraph</option>
+        <option value="word">Word</option>
+        <option value="sentence">Sentence</option>
+      </select>
+    
+      <label for="loramCount">Count:</label>
+      <input type="number" id="loramCount" min="1" max="50" value="1">
+
+    </div>
+    
+
+    
+    
+
       <button onclick="performAction()">Apply</button>
-      <h3>output</h3>
+
+      <p>output</p>
       <textarea
         id="outputArea"
         placeholder="Output Text"
